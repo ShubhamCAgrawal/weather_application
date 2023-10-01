@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Current Weather
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-searchbar class="mapsearchBar" [(ngModel)]="cityName" debounce="500" class="search-bar"
+    placeholder="Search"></ion-searchbar>
+  <ion-button class="ion-padding" expand="block" (click)="searchWeather()">get current weather</ion-button>
+
+  <ion-title *ngIf="!isOnline" class="error-message ion-padding-top">
+    No internet connection. Please check your network.
+  </ion-title>
+
+  <ion-card *ngIf="isOnline && weatherData">
+    <ion-card-header>
+      Current Weather
+    </ion-card-header>
+    <ion-card-content>
+      <p>Temperature: {{weatherData?.main?.temp}}</p>
+      <p>Description: {{weatherData?.weather[0]?.description}}</p>
+      <ion-img *ngIf="weatherData?.weather[0]?.icon"
+        [src]="'https://openweathermap.org/img/w/' + weatherData?.weather[0]?.icon + '.png'"></ion-img>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
